@@ -39,7 +39,7 @@ const ThyroidReport = ({ thyroidReport, setThyroidReport, setThyroidForm, thyrDa
                 <Modal.Body>
                     <div className="d-flex justify-content-between mb-2">
                         <span> <b>Thyroi Profile Data </b> </span>
-                        <Button variant='success' onClick={() => { Update() }}>Update</Button>
+                        <Button variant='success' onClick={() => { Update() }} disabled>Update</Button>
 
                     </div>
                     <Table bordered >

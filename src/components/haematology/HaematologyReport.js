@@ -34,7 +34,7 @@ const HaematologyReport = ({ haemReport, sethaemReport, hemoData, sethaemForm })
                     <Modal.Body>
                         <div className="d-flex justify-content-between mb-2">
                             <span> <b>Enter Thyroid Profile Data</b> </span>
-                            <Button variant='success' onClick={() => { Update() }}>Update</Button>
+                            <Button variant='success' onClick={() => { Update()  }}disabled>Update</Button>
 
                         </div>
 

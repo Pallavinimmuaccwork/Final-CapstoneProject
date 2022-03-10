@@ -19,9 +19,6 @@ const Haematology = ({ haemForm, sethaemForm, id }) => {
     const rbc = useRef()
     const mcv = useRef()
 
-
-
-
     const onHide = () => {
         sethaemoData({
             haemoglobin: haemoglobin.current.value,
@@ -37,12 +34,6 @@ const Haematology = ({ haemForm, sethaemForm, id }) => {
         })
         haemData();
     }
-
-
-
-
-
-
 
     const haemData = async () => {
         // console.log(haemoData);
@@ -76,15 +67,9 @@ const Haematology = ({ haemForm, sethaemForm, id }) => {
 
     }
 
-
-
-
-
-
-
-    return (
+     return (
         <>
-            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={haemForm} >
+            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={false} >
                 <Modal.Body>
                     <h4>Enter Haematology Reports </h4>
                     <Form>

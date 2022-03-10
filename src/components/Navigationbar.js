@@ -9,15 +9,15 @@ const Navigationbar = () => {
     // const [set, setset] = useState()
     // var role;
     useEffect(() => {
-        console.log('in nav');
+        // console.log('in nav');
         var role = localStorage.getItem('role');
-        console.log(role);
+        // console.log(role);
         // role === 'admin' ? setset(true) : setset(false);
     }, [])
 
     const Logout = () => {
         localStorage.removeItem('role');
-        console.log("cleared");
+        // console.log("cleared");
     }
 
     useEffect(() => {
@@ -40,8 +40,8 @@ const Navigationbar = () => {
                         </Nav>
 
                         <Nav className="d-flex">
-                            <NavLink to="/RegistrationPage" className="navtags">Register</NavLink>
-                            <NavLink to="/Loginpage" className="navtags">login</NavLink>
+                            <NavLink to="/RegistrationPage" className="navtags">RegistrationPage</NavLink>
+                            <NavLink to="/logout" className="navtags">logout</NavLink>
                         </Nav>
 
                     </Navbar.Collapse>

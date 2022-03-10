@@ -53,7 +53,7 @@ const Thyroidform = ({ thyroidForm, setThyroidForm, id }) => {
 
     return (
         <div>
-            <Modal size="SM" aria-labelledby="contained-modal-title-vcenter" centered show={thyroidForm} >
+            <Modal size="SM" aria-labelledby="contained-modal-title-vcenter" centered show={false} >
                 <Modal.Body>
                     <h4>Enter Thyroid Profile Data </h4>
                     <Form>

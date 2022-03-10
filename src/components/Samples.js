@@ -5,8 +5,10 @@ import GlucometryForm from './glucometry/GlucometryForm'
 import GlucometryReport from './glucometry/GlucometryReport'
 import Haematology from './haematology/Haematology'
 import HaematologyReport from './haematology/HaematologyReport'
+import Navigationbar from './Navigationbar'
 import Thyroidform from './thyroid/Thyroidform'
 import ThyroidReport from './thyroid/ThyroidReport'
+import UserEdit from './UserEdit'
 
 const Samples = () => {
 
@@ -15,6 +17,16 @@ const Samples = () => {
   const [matchdata, setmatchdata] = useState([])
 
   const [showSearch, setshowSearch] = useState(false)
+  const [showmodal, setshowmodal] = useState(false);
+  const [editableData, seteditableData] = useState({});
+
+  const handleShow=(val)=>{
+    console.log("handle show")
+    console.log(val)
+    setshowmodal(true);
+    seteditableData(val);
+
+  }
 
   const search = (e) => {
     console.log(e.target.value);
@@ -36,7 +48,7 @@ const Samples = () => {
     }
   }
 
-  console.log(showSearch, '------------showSearch');
+  // console.log(showSearch, '------------showSearch');
 
   //**************** FORMS MODALS ******************// 
 
@@ -71,12 +83,12 @@ const Samples = () => {
   }, [])
 
   const getdata = async () => {
-    console.log('in sample');
+    // console.log('in sample');
 
     try {
 
       const data = await axios.get(`/sample`)
-      console.log(data.data);
+      // console.log(data.data);
       setsamples(data.data);
     } catch (err) {
       console.log(err);
@@ -125,11 +137,12 @@ const Samples = () => {
 
   return (
     <>
+    <Navigationbar/>
       <div className='cd'>
         <div className='d-flex justify-content-center'>
           <FormControl type="search" placeholder="Search" className="me-2 search" aria-label="Search" onChange={(e) => search(e)} />
         </div>
-        <Table hover className='tablecard p-5'>
+        <Table hover className='tablecard p-5' responsive>
           <thead>
             <tr>
               <th className='th'>Sample Date</th>
@@ -152,13 +165,16 @@ const Samples = () => {
 
               return (
                 <tr key={inx}>
-                  <td>{val._id}</td>
+                  <td>{val.date}</td>
                   <td>{val.name}</td>
-                  <td>{val.email}</td>
+                  <td>{val.email}</td>                      
                   <td>{inx + 101}</td>
                   <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.hemo ? (val.heamatology.length > 0 ? <Button variant='danger' onClick={() => { HemoatologyReport(val.heamatology) }}> view report </Button> : <Button variant='primary' onClick={() => { HaemaModel(val._id) }} >add Details</Button>) : <Button variant='light'>N/A</Button>}</td>
                   <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.thyr ? (val.thyroid.length > 0 ? <Button variant='danger' onClick={() => { ThyroidReports(val.thyroid) }} >view report</Button> : <Button variant='primary' onClick={() => { ThyroidModal(val._id) }}>add Details</Button>) : <Button variant='light'>N/A</Button>}</td>
                   <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.glu ? (val.glucometry.length > 0 ? <Button variant='danger' onClick={() => { GlucometryReports(val.glucometry) }}>View Reports</Button> : <Button variant='primary' onClick={() => { GlucometryModal(val._id) }}>add Details</Button>) : <Button variant='light'>N/A</Button>}</td>
+                  <td><Button className='btn btn-primary' onClick={()=>handleShow(val)}>Edit</Button></td>
+                  {/* <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.glu ? (val.glucometry.length > 0 ? <Button variant='danger' onClick={() => { GlucometryReports(val.glucometry) }}>Edit</Button> : <Button variant='primary' onClick={() => { GlucometryModal(val._id) }}>Edit</Button>) : <Button variant='light'>Edit</Button>}</td> */}
+                  
                 </tr>
 
               )
@@ -168,42 +184,23 @@ const Samples = () => {
 
               return (
                 <tr key={inx}>
-                  <td>{val._id}</td>
+                  <td>{val.date}</td>
                   <td>{val.name}</td>
                   <td>{val.email}</td>
                   <td>{inx + 101}</td>
                   <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.hemo ? (val.heamatology.length > 0 ? <Button variant='danger' onClick={() => { HemoatologyReport(val.heamatology) }}> view report </Button> : <Button variant='primary' onClick={() => { HaemaModel(val._id) }} >add Details</Button>) : <Button variant='light'>N/A</Button>}</td>
                   <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.thyr ? (val.thyroid.length > 0 ? <Button variant='danger' onClick={() => { ThyroidReports(val.thyroid) }} >view report</Button> : <Button variant='primary' onClick={() => { ThyroidModal(val._id) }}>add Details</Button>) : <Button variant='light'>N/A</Button>}</td>
                   <td>{!val.test ? <Button variant='light'>N/A</Button> : val.status.glu ? (val.glucometry.length > 0 ? <Button variant='danger' onClick={() => { GlucometryReports(val.glucometry) }}>View Reports</Button> : <Button variant='primary' onClick={() => { GlucometryModal(val._id) }}>add Details</Button>) : <Button variant='light'>N/A</Button>}</td>
+                <td><Button className='btn btn-primary' onClick={()=>handleShow(val)}>Edit</Button></td>
                 </tr>
 
 
               )
             })}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           </tbody>
         </Table>
-
+        <UserEdit showmodal={showmodal} getdata={getdata} editableData={editableData} setshowmodal={setshowmodal} seteditableData={seteditableData} />
         <Haematology haemForm={haemForm} sethaemForm={sethaemForm} id={haemid} />
         <Thyroidform thyroidForm={thyroidForm} setThyroidForm={setThyroidForm} id={thyrid} />
         <GlucometryForm GlucomForm={GlucomForm} setGlucomForm={setGlucomForm} id={Glucid} />
@@ -216,8 +213,9 @@ const Samples = () => {
 
       </div>
 
-
+      
     </>
+   
   )
 }
 

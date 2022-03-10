@@ -47,7 +47,7 @@ const GlucometryForm = ({ GlucomForm, setGlucomForm, id }) => {
             <Modal size=""
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                show={GlucomForm}
+                show={false}
             >
                 <Modal.Body>
                     <h4>Enter Add Glucomtery Report </h4>
